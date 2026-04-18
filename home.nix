@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, inputs, username, ... }:
 
 {
   home.username = username;
@@ -8,6 +8,7 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+    inputs.codex-cli-nix.packages.${pkgs.system}.default
     openssh
     ripgrep
     fd
