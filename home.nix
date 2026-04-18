@@ -88,9 +88,36 @@
           relativenumber = true;
           shiftwidth = 2;
           tabstop = 2;
+          expandtab = true;
+          cmdheight = 0;
+          scrolloff = 5;
         };
 
         telescope.enable = true;
+
+        treesitter = {
+          enable = true;
+          grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
+            bash
+            fish
+            json
+            markdown
+            markdown_inline
+            toml
+            yaml
+          ];
+        };
+
+        languages.nix = {
+          enable = true;
+          treesitter.enable = true;
+          lsp = {
+            enable = true;
+            servers = [ "nil" ];
+          };
+          format.enable = true;
+          extraDiagnostics.enable = true;
+        };
 
         utility.motion.flash-nvim.enable = true;
       };
