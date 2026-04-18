@@ -12,7 +12,7 @@
   ];
 
   home.packages = with pkgs; [
-    inputs.codex-cli-nix.packages.${pkgs.system}.default
+    inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
     openssh
     ripgrep
     fd
@@ -72,6 +72,7 @@
     clock24 = true;
     mouse = true;
     terminal = "screen-256color";
+    extraConfig = builtins.readFile ./tmux.conf;
   };
 
   programs.nvf = {
