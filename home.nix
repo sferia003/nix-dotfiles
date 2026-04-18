@@ -1,4 +1,9 @@
-{ pkgs, inputs, username, ... }:
+{
+  pkgs,
+  inputs,
+  username,
+  ...
+}:
 
 {
   home.username = username;
@@ -13,6 +18,7 @@
 
   home.packages = with pkgs; [
     inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    pkgs.nixfmt
     openssh
     ripgrep
     fd
@@ -28,25 +34,11 @@
   programs.git = {
     enable = true;
     settings = {
-    user = {
-      name = "Stephen Feria";
-      email = "sferia003@gmail.com";
+      user = {
+        name = "Stephen Feria";
+        email = "sferia003@gmail.com";
+      };
     };
-    };
-  };
-
-  programs.fish = {
-    enable = true;
-
-    shellAliases = {
-      ll = "eza -la";
-      gs = "git status";
-      v = "nvim";
-    };
-
-    interactiveShellInit = ''
-      set -g fish_greeting
-    '';
   };
 
   programs.zsh = {
@@ -59,12 +51,10 @@
 
   programs.fzf = {
     enable = true;
-    enableFishIntegration = true;
   };
 
   programs.zoxide = {
     enable = true;
-    enableFishIntegration = true;
   };
 
   programs.tmux = {
@@ -95,6 +85,18 @@
 
         telescope.enable = true;
 
+        autocomplete.blink-cmp.enable = true;
+
+        keymaps = [
+          {
+            key = "<leader>e";
+            mode = "n";
+            silent = true;
+            action = "<cmd>lua vim.diagnostic.open_float(nil, { scope = 'line' })<CR>";
+            desc = "Show line diagnostics";
+          }
+        ];
+
         treesitter = {
           enable = true;
           grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
@@ -115,8 +117,16 @@
             enable = true;
             servers = [ "nil" ];
           };
-          format.enable = true;
+          format = {
+            enable = true;
+            type = [ "nixfmt" ];
+          };
           extraDiagnostics.enable = true;
+        };
+
+        lsp = {
+          enable = true;
+          formatOnSave = true;
         };
 
         utility.motion.flash-nvim.enable = true;

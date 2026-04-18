@@ -1,9 +1,16 @@
-{ pkgs, username, self, ... }:
+{
+  pkgs,
+  username,
+  ...
+}:
 
 {
   system.stateVersion = 6;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   system.primaryUser = username;
 
@@ -12,6 +19,7 @@
   };
 
   # Mac/system-level things
+
   programs.zsh.enable = true;
   programs.fish.enable = true;
 
