@@ -95,7 +95,35 @@
             action = "<cmd>lua vim.diagnostic.open_float(nil, { scope = 'line' })<CR>";
             desc = "Show line diagnostics";
           }
+          {
+            key = "<leader>\\";
+            mode = "n";
+            silent = true;
+            action = "<cmd>CodexToggle<CR>";
+            desc = "Toggle Codex";
+          }
         ];
+
+        extraPlugins = {
+          codex-nvim = {
+            package = import ./pkgs/codex-nvim.nix { inherit inputs pkgs; };
+            setup = ''
+              require("codex").setup({
+                keymaps = {
+                  toggle = nil,
+                  quit = nil,
+                },
+                border = "rounded",
+                width = 0.9,
+                height = 0.9,
+                cmd = "codex",
+                autoinstall = false,
+                panel = false,
+                use_buffer = false,
+              })
+            '';
+          };
+        };
 
         treesitter = {
           enable = true;

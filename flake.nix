@@ -12,6 +12,11 @@
 
     codex-cli-nix.url = "github:sadjow/codex-cli-nix";
 
+    codex-nvim = {
+      url = "github:johnseth97/codex.nvim";
+      flake = false;
+    };
+
     nvf.url = "github:NotAShelf/nvf";
     nvf.inputs.nixpkgs.follows = "nixpkgs";
   };
