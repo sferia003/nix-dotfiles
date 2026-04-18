@@ -7,6 +7,10 @@
 
   programs.home-manager.enable = true;
 
+  imports = [
+    inputs.nvf.homeManagerModules.default
+  ];
+
   home.packages = with pkgs; [
     inputs.codex-cli-nix.packages.${pkgs.system}.default
     openssh
@@ -45,6 +49,14 @@
     '';
   };
 
+  programs.zsh = {
+    enable = true;
+
+    shellAliases = {
+      rebuild = "sudo darwin-rebuild switch --flake .#Stephens-MacBook-Air";
+    };
+  };
+
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
@@ -62,11 +74,26 @@
     terminal = "screen-256color";
   };
 
-  programs.neovim = {
+  programs.nvf = {
     enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
+
+    settings = {
+      vim = {
+        viAlias = true;
+        vimAlias = true;
+
+        options = {
+          number = true;
+          relativenumber = true;
+          shiftwidth = 2;
+          tabstop = 2;
+        };
+
+        telescope.enable = true;
+
+        utility.motion.flash-nvim.enable = true;
+      };
+    };
   };
 
   home.sessionVariables = {
