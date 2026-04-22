@@ -110,6 +110,60 @@
 
         telescope.enable = true;
 
+        dashboard.dashboard-nvim = {
+          enable = true;
+          setupOpts = {
+            theme = "doom";
+            config = {
+              header = [
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                "                               __                "
+                "  ___     ___    ___   __  __ /\\_\\    ___ ___    "
+                " / _ `\\  / __`\\ / __`\\/\\ \\/\\ \\\\/\\ \\  / __` __`\\  "
+                "/\\ \\/\\ \\/\\  __//\\ \\_\\ \\ \\ \\_/ |\\ \\ \\/\\ \\/\\ \\/\\ \\ "
+                "\\ \\_\\ \\_\\ \\____\\ \\____/\\ \\___/  \\ \\_\\ \\_\\ \\_\\ \\_\\"
+                " \\/_/\\/_/\\/____/\\/___/  \\/__/    \\/_/\\/_/\\/_/\\/_/"
+                ""
+                ""
+              ];
+              center = [
+                {
+                  desc = "Find files";
+                  key = "f";
+                  action = "Telescope find_files";
+                }
+                {
+                  desc = "Recent files";
+                  key = "r";
+                  action = "Telescope oldfiles";
+                }
+                {
+                  desc = "Search text";
+                  key = "g";
+                  action = "Telescope live_grep";
+                }
+                {
+                  desc = "New file";
+                  key = "n";
+                  action = "enew";
+                }
+                {
+                  desc = "Quit";
+                  key = "q";
+                  action = "qa";
+                }
+              ];
+            };
+          };
+        };
+
         autocomplete.blink-cmp.enable = true;
 
         keymaps = [
