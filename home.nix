@@ -44,8 +44,18 @@
   programs.zsh = {
     enable = true;
 
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "git"
+        "fzf"
+        "zoxide"
+      ];
+      theme = "lambda";
+    };
+
     shellAliases = {
-      rebuild = "sudo darwin-rebuild switch --flake .#Stephens-MacBook-Air";
+      rebuild = "z /etc/nix-darwin && sudo darwin-rebuild switch --flake .#Stephens-MacBook-Air";
     };
   };
 
@@ -55,6 +65,21 @@
 
   programs.zoxide = {
     enable = true;
+  };
+
+  programs.yazi = {
+    enable = true;
+    shellWrapperName = "yy";
+    theme = {
+      mode = {
+        normal_main = {
+          bg = "#121212";
+        };
+        normal_alt = {
+          bg = "#1f1f1f";
+        };
+      };
+    };
   };
 
   programs.tmux = {
@@ -89,11 +114,18 @@
 
         keymaps = [
           {
-            key = "<leader>e";
+            key = "<leader>d";
             mode = "n";
             silent = true;
             action = "<cmd>lua vim.diagnostic.open_float(nil, { scope = 'line' })<CR>";
             desc = "Show line diagnostics";
+          }
+          {
+            key = "<leader>e";
+            mode = "n";
+            silent = true;
+            action = "<cmd>Yazi<CR>";
+            desc = "Open Yazi";
           }
           {
             key = "<leader>\\";
@@ -111,7 +143,7 @@
               require("codex").setup({
                 keymaps = {
                   toggle = nil,
-                  quit = nil,
+                  quit = "<leader>\\",
                 },
                 border = "rounded",
                 width = 0.9,
@@ -120,6 +152,22 @@
                 autoinstall = false,
                 panel = false,
                 use_buffer = false,
+              })
+            '';
+          };
+          yazi-nvim = {
+            package = pkgs.vimPlugins.yazi-nvim;
+            setup = ''
+              require("yazi").setup({
+                open_for_directories = true,
+                set_keymappings_function = function(yazi_buffer_id, _config, _context)
+                  vim.keymap.set("t", "<leader>e", function()
+                    local job_id = vim.b.terminal_job_id
+                    if job_id then
+                      vim.api.nvim_chan_send(job_id, "q")
+                    end
+                  end, { buffer = yazi_buffer_id, desc = "Close Yazi" })
+                end,
               })
             '';
           };
