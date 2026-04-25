@@ -16,6 +16,7 @@
 
   users.users.${username} = {
     home = "/Users/${username}";
+    shell = pkgs.zsh;
   };
 
   # Mac/system-level things
@@ -24,13 +25,6 @@
   programs.fish.enable = true;
 
   system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = false;
-
-  launchd.user.envVariables = {
-    TERMINFO_DIRS = [
-      "/run/current-system/sw/share/terminfo"
-      "/usr/share/terminfo"
-    ];
-  };
 
   environment.systemPackages = with pkgs; [
     vim
