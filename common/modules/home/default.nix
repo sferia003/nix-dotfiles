@@ -29,7 +29,6 @@
     bat
     eza
     tmux
-    claude-code
   ];
 
   programs.direnv = {
@@ -154,8 +153,6 @@
           };
         };
       };
-
-      autocomplete.blink-cmp.enable = true;
 
       keymaps = [
         {
