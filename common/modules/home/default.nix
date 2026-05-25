@@ -172,6 +172,22 @@
       ];
 
       extraPlugins = {
+        claude-code-nvim = {
+          package = pkgs.vimPlugins.claude-code-nvim;
+          setup = ''
+            require("claude-code").setup({
+              window = {
+                position = "float"
+              },
+              keymaps = {
+                toggle = {
+                  normal = "<leader>\\",
+                  terminal = "<leader>\\",
+                },
+              },
+            })
+          '';
+        };
         yazi-nvim = {
           package = pkgs.vimPlugins.yazi-nvim;
           setup = ''
@@ -221,6 +237,8 @@
         enable = true;
         formatOnSave = true;
       };
+
+      git.gitsigns.enable = true;
 
       utility.motion.flash-nvim.enable = true;
     };
