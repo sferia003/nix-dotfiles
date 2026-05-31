@@ -30,9 +30,7 @@
     eza
     tmux
     sioyek
-    (pkgs.texlive.combine {
-      inherit (pkgs.texlive) scheme-medium latexmk lingmacros;
-    })
+    pkgs.texlive.combined.scheme-full
   ];
 
   programs.direnv = {
