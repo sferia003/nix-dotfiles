@@ -31,7 +31,7 @@
     tmux
     sioyek
     (pkgs.texlive.combine {
-      inherit (pkgs.texlive) scheme-medium latexmk;
+      inherit (pkgs.texlive) scheme-medium latexmk lingmacros;
     })
   ];
 
