@@ -29,6 +29,10 @@
     bat
     eza
     tmux
+    sioyek
+    (pkgs.texlive.combine {
+      inherit (pkgs.texlive) scheme-medium latexmk;
+    })
   ];
 
   programs.direnv = {
@@ -172,6 +176,14 @@
       ];
 
       extraPlugins = {
+        vimtex = {
+          package = pkgs.vimPlugins.vimtex;
+          setup = ''
+            vim.g.maplocalleader = "\\"
+            vim.g.vimtex_view_method = "sioyek"
+            vim.g.vimtex_compiler_method = "latexmk"
+          '';
+        };
         claude-code-nvim = {
           package = pkgs.vimPlugins.claude-code-nvim;
           setup = ''
